@@ -10,8 +10,18 @@ export class TasksManagerComponent {
   constructor(public tachesService: TachesV0Service){}
 
   addTask(title:string){
-    if(title!=title){
+    // if(title!=title){
       this.tachesService.addTask(title);
-    }
+      console.log("ajout ds tableau");
+      
+    // }
+    console.log("pas d'ajout");
+    console.log(title);
+    
+
+  }
+
+  removeTask(id:number){
+    this.tachesService.removeTask(id);
   }
 }

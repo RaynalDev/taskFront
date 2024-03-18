@@ -1,13 +1,13 @@
 <p>tasks-manager works!</p>
-<!-- <div>
+<div>
     <input #tacheInput type="text">
-    <button (click)="ajouterTache(tacheInput.value)">Ajouter Tâche</button>
+    <button (click)="addTask(tacheInput.value)">Ajouter Tâche</button>
   </div>
   
   <ul>
-    <li *ngFor="let tache of tachesService.obtenirTaches()">
-      {{ tache.contenu }}
-      <button (click)="tachesService.supprimerTache(tache.id)">Supprimer</button>
+    <li *ngFor="let tache of tachesService.getTask()">
+      {{ tache.title }}
+      <button (click)="tachesService.removeTask(tache.id)">Supprimer</button>
     </li>
   </ul>
-   -->
+  
