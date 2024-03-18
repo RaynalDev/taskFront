@@ -2,12 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-
-export interface Task {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+import { Task } from './task.model';
 
 @Injectable({
   providedIn: 'root'
