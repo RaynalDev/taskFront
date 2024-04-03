@@ -17,12 +17,13 @@ export class TachesV0Service {
   constructor() { }
 
   addTask(title:string){
-    const newTask: Task = { id:this.idCompteur++, title};
+    // const newTask: Task = { id:this.idCompteur++, title};
+    
     //ici on ne peut pas réassigner ces newTAsk à une nouvelle valeur ou un nouvel 
     //obejet
     //en revanche on peut modifier ses propriétés ss pb
 
-    this.tasks.push(newTask);
+    // this.tasks.push(newTask);
   }
 
   getTask(){
@@ -34,8 +35,8 @@ export class TachesV0Service {
   }
 
 
-  removeTask(id:number){
-    this.tasks = this.tasks.filter(t => t.id!== id)
-    // ici on préfère filter que Splice pour ne pas modifier directement le tabelau
-  }
+  // removeTask(id:number){
+  //   this.tasks = this.tasks.filter(t => t.id!== id)
+  //   // ici on préfère filter que Splice pour ne pas modifier directement le tabelau
+  // }
 }

@@ -1,7 +1,8 @@
 import { Timestamp } from "rxjs"
 
 export interface Task {
-    id: number,
+    id?: string,
+    _id: string,
     title: string,
     dateCreation?: Date,
     description?: string,
