@@ -1,14 +1,21 @@
-// import { bootstrapApplication } from '@angular/platform-browser';
-// import { appConfig } from './app/app.config';
-// import { AppComponent } from './app/app.component';
 
-// bootstrapApplication(AppComponent, appConfig)
-//   .catch((err) => console.error(err));
+// in the main.ts file
+import {bootstrapApplication} from '@angular/platform-browser';
+import {AppComponent} from './app/app.component';
+import { appConfig } from './app/app.config';
+import { importProvidersFrom } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 
-  // main.ts
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModule } from './app/app.module';
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+// cette fontction permet de démarrer une instance d'application angular
+// à partir d'un composant standalone
+bootstrapApplication(AppComponent,{
+  
+  // ici on injecte le httpClientModule car on l'utilise dans un composant 
+  // qui appel un service qui l'utilise
+  // ce composant est appelé par AppComponent
+  providers: [
+    importProvidersFrom(HttpClientModule),
+  ]
+});

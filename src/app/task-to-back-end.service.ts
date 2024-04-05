@@ -21,7 +21,7 @@ export class TaskToBackEndService {
   }
 
   // Dans task-to-back-end.service.ts
-  deleteTask(taskId: string): Observable<any> {
+  deleteTask(taskId: string|undefined): Observable<any> {
     const url = `${this.apiUrl}/${taskId}`;
     return this.http.delete(url);
   }
