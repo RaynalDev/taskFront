@@ -26,4 +26,10 @@ export class TaskToBackEndService {
     return this.http.delete(url);
   }
 
+  updateTask(task : Task): Observable<any>{
+    const url = `${this.apiUrl}/${task._id}`;
+    return this.http.put(url, task);
+    // return this.http.put(url, {"title": task.title, "completed": task.completed});
+  }
+
 }

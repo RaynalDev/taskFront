@@ -3,17 +3,18 @@ import { TaskToBackEndService } from '../task-to-back-end.service';
 import { Task } from '../task.model';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-tasks-manager',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './tasks-manager.component.html',
   styleUrl: './tasks-manager.component.scss'
 })
 export class TasksManagerComponent implements OnDestroy {
   tasks: Task[] = [];
   private subscriptions = new Subscription();
+  editingTaskId: string | undefined | null = null;
 
   constructor(private taskToBackEndService: TaskToBackEndService) { }
 
@@ -30,6 +31,11 @@ export class TasksManagerComponent implements OnDestroy {
   }
 
 
+  editTask(task: Task) {
+    console.log("edit task");
+    this.editingTaskId = task._id;
+  }
+
   createTask(title: string) {
     const newTask: Task = { title: title, completed: false };
     const addTaskSubscription = this.taskToBackEndService.addTask(newTask).subscribe(task => {
@@ -40,19 +46,14 @@ export class TasksManagerComponent implements OnDestroy {
 
   }
 
-  // Dans ton composant, par exemple task-manager.component.ts
-  removeTask(task: Task): void {
+  removeTask(task: Task) {
     console.log(task);
 
-   const deleteTaskSubscription = this.taskToBackEndService.deleteTask(task._id).subscribe({
+    const deleteTaskSubscription = this.taskToBackEndService.deleteTask(task._id).subscribe({
       next: (response) => {
-
-        // Actualiser la liste des tâches ou enlever la tâche supprimée du tableau
-        
         this.tasks = this.tasks.filter(t => t._id !== task._id);
         console.log("tableau de taches", this.tasks);
         console.log(response);
-      
       },
       error: (err) => {
         console.error('Erreur lors de la suppression :', err);
@@ -60,13 +61,34 @@ export class TasksManagerComponent implements OnDestroy {
     });
     this.subscriptions.add(deleteTaskSubscription);
   }
+  
+  updateTask(task: Task) {
+    console.log(task);
+    
+    const updateTaskSubscription = this.taskToBackEndService.updateTask(task).subscribe({
+      next: (response) => {
+        const index = this.tasks.findIndex(t => t._id === task._id);
+        this.tasks[index].title = task.title;
+        this.tasks[index].completed = task.completed;
+        console.log(response);
+        console.log(this.tasks);
 
-  update(task : Task){
+        this.editingTaskId = null;
+      },
+      error: (err) => {
+        console.log('Errueur lors de la modification');
 
+      }
+    });
+    this.subscriptions.add(updateTaskSubscription);
+  }
+
+  cancelUpdateTask() {
+    this.editingTaskId = null;
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();    
+    this.subscriptions.unsubscribe();
   }
 
 }
