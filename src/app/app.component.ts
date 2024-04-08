@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TasksManagerComponent } from './tasks-manager/tasks-manager.component';
+import { TasksManagerComponent } from './task/tasks-manager/tasks-manager.component';
 
 @Component({
   selector: 'app-root',

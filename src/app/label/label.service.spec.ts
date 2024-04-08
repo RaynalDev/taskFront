@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TaskToBackEndService } from './task-to-back-end.service';
+import { LabelService } from './label.service';
 
-describe('TaskToBackEndService', () => {
-  let service: TaskToBackEndService;
+describe('LabelService', () => {
+  let service: LabelService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TaskToBackEndService);
+    service = TestBed.inject(LabelService);
   });
 
   it('should be created', () => {

@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+<p>TODO-LIST</p>
+<div>
+  
+<input class="form-control mb-3" placeholder="Ajouter Tâche" type="text" (keyup.enter)="createTask(tacheInput.value)" #tacheInput>
+<i class="fas fa-plus-circle fa-2x text-primary" style="cursor: pointer;" (click)="createTask(tacheInput.value)"></i>
+
+
+</div>
+
+<ul>
+  @for (task of tasks; track task._id) {
+  <li>
+    @if (editingTaskId === task._id) {
+      <input [(ngModel)]="task.title" type="text" (keyup.enter)="updateTask(task)" />
+      <button (click)="updateTask(task)">Valider</button>
+      <button (click)="cancelUpdateTask()">Annuler</button>
+    }
+    @else {
+      <input [(ngModel)]="task.completed" type="checkbox" (change)="updateTask(task)" />
+    @if (task.completed) {
+      <s>{{ task.title }}</s>}
+    @else {
+      {{ task.title }}
+    }
+    <button (click)="editTask(task)">Modifier</button>
+    }
+    <button (click)="removeTask(task)">Supprimer</button>
+  </li>
+
+  }
+</ul>

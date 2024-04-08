@@ -1,13 +1,12 @@
 import { Component, OnDestroy, } from '@angular/core';
-import { TaskToBackEndService } from '../task-to-back-end.service';
+import { TaskService } from '../task.service';
 import { Task } from '../task.model';
-import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-tasks-manager',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './tasks-manager.component.html',
   styleUrl: './tasks-manager.component.scss'
 })
@@ -16,13 +15,13 @@ export class TasksManagerComponent implements OnDestroy {
   private subscriptions = new Subscription();
   editingTaskId: string | undefined | null = null;
 
-  constructor(private taskToBackEndService: TaskToBackEndService) { }
+  constructor(private TaskService: TaskService) { }
 
   ngOnInit() {
 
-    // initialise le tableau de taches avec un observable renvoyé par le back
-    // de cette façon
-    const tasksSubscription = this.taskToBackEndService.getTasks().subscribe((data: Task[]) => {
+    const tasksSubscription = this.TaskService.getTasks().subscribe((data: Task[]) => {
+
+      // initialise le tableau de taches avec un observable renvoyé par le back
       this.tasks = data;
       console.log(this.tasks);
 
@@ -37,9 +36,11 @@ export class TasksManagerComponent implements OnDestroy {
   }
 
   createTask(title: string) {
-    const newTask: Task = { title: title, completed: false };
-    const addTaskSubscription = this.taskToBackEndService.addTask(newTask).subscribe(task => {
+    const taskToCreate: Task = { title: title, completed: false };
+    const addTaskSubscription = this.TaskService.addTask(taskToCreate).subscribe(task => {
       console.log('Tache crée', task);
+
+      //je sychnronise mon front avec mon back
       this.tasks.push(task);
     })
     this.subscriptions.add(addTaskSubscription);
@@ -49,7 +50,7 @@ export class TasksManagerComponent implements OnDestroy {
   removeTask(task: Task) {
     console.log(task);
 
-    const deleteTaskSubscription = this.taskToBackEndService.deleteTask(task._id).subscribe({
+    const deleteTaskSubscription = this.TaskService.deleteTask(task._id).subscribe({
       next: (response) => {
         this.tasks = this.tasks.filter(t => t._id !== task._id);
         console.log("tableau de taches", this.tasks);
@@ -61,11 +62,11 @@ export class TasksManagerComponent implements OnDestroy {
     });
     this.subscriptions.add(deleteTaskSubscription);
   }
-  
+
   updateTask(task: Task) {
     console.log(task);
-    
-    const updateTaskSubscription = this.taskToBackEndService.updateTask(task).subscribe({
+
+    const updateTaskSubscription = this.TaskService.updateTask(task).subscribe({
       next: (response) => {
         const index = this.tasks.findIndex(t => t._id === task._id);
         this.tasks[index].title = task.title;
