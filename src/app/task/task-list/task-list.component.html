@@ -1,1 +1,24 @@
 <p>task-list works!</p>
+
+<ul>
+    @for (task of tasks; track task._id) {
+    <li>
+      @if (editingTaskId === task._id) {
+        <input [(ngModel)]="task.title" type="text" (keyup.enter)="updateTask(task)" />
+        <button (click)="updateTask(task)">Valider</button>
+        <button (click)="cancelUpdateTask()">Annuler</button>
+      }
+      @else {
+        <input [(ngModel)]="task.completed" type="checkbox" (change)="updateTask(task)" />
+      @if (task.completed) {
+        <s>{{ task.title }}</s>}
+      @else {
+        {{ task.title }}
+      }
+      <button (click)="editTask(task)">Modifier</button>
+      }
+      <button (click)="removeTask(task)">Supprimer</button>
+    </li>
+  
+    }
+  </ul>

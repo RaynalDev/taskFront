@@ -5,6 +5,7 @@ import {AppComponent} from './app/app.component';
 import { appConfig } from './app/app.config';
 import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 
@@ -16,6 +17,6 @@ bootstrapApplication(AppComponent,{
   // qui appel un service qui l'utilise
   // ce composant est appelé par AppComponent
   providers: [
-    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(HttpClientModule), provideAnimationsAsync(),
   ]
 });

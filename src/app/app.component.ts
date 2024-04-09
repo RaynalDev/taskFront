@@ -1,15 +1,13 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TasksManagerComponent } from './task/tasks-manager/tasks-manager.component';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterModule, 
-    CommonModule, 
-    TasksManagerComponent],
+    DashboardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
