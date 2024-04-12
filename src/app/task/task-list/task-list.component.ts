@@ -3,11 +3,14 @@ import { Task } from '../task.model';
 import { TaskService } from '../task.service';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon'
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, MatCheckboxModule, MatButtonModule, MatIconModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
