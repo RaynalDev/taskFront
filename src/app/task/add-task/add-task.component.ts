@@ -3,6 +3,7 @@ import { Task } from '../task.model';
 import { TaskService } from '../task.service';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-task',
@@ -17,7 +18,7 @@ export class AddTaskComponent {
   private subscriptions = new Subscription();
   editingTaskId: string | undefined | null = null;
 
-  constructor(private TaskService: TaskService) { }
+  constructor(private TaskService: TaskService, private router: ActivatedRoute) { }
 
   ngOnInit() {
 

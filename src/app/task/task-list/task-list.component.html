@@ -1,5 +1,8 @@
 <p>task-list works!</p>
-
+<button (click)="showAddTaskModal = true">Ajouter une Tâche</button>
+@if(showAddTaskModal){
+  <app-add-task (close)="showAddTaskModal=false"></app-add-task>
+}
 <ul>
     @for (task of tasks; track task._id) {
     <li>

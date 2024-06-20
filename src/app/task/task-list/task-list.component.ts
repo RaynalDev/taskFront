@@ -6,11 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [FormsModule, MatCheckboxModule, MatButtonModule, MatIconModule],
+  imports: [AddTaskComponent,FormsModule, MatCheckboxModule, MatButtonModule, MatIconModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
@@ -18,6 +19,8 @@ export class TaskListComponent {
   tasks: Task[] = [];
   private subscriptions = new Subscription();
   editingTaskId: string | undefined | null = null;
+  showAddTaskModal = false;
+
 
   constructor(private TaskService: TaskService) { }
 
