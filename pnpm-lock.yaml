@@ -69,6 +69,9 @@ importers:
       '@angular/compiler-cli':
         specifier: ^17.0.0
         version: 17.3.4(@angular/compiler@17.3.4(@angular/core@17.3.4(rxjs@7.8.1)(zone.js@0.14.4)))(typescript@5.2.2)
+      '@auth0/angular-jwt':
+        specifier: ^5.2.0
+        version: 5.2.0(@angular/common@17.3.4(@angular/core@17.3.4(rxjs@7.8.1)(zone.js@0.14.4))(rxjs@7.8.1))
       '@types/jasmine':
         specifier: ~5.1.0
         version: 5.1.4
@@ -278,6 +281,11 @@ packages:
       '@angular/core': 17.3.4
       '@angular/platform-browser': 17.3.4
       rxjs: ^6.5.3 || ^7.4.0
+
+  '@auth0/angular-jwt@5.2.0':
+    resolution: {integrity: sha512-9FS2L0QwGNlxA/zgeehCcsR9CZscouyXkoIj1fODM36A8BLfdzg9k9DWAXUQ2Drjk0AypGAFzeNZR4vsLMhdeQ==}
+    peerDependencies:
+      '@angular/common': '>=14.0.0'
 
   '@babel/code-frame@7.24.2':
     resolution: {integrity: sha512-y5+tLQyV8pg3fsiln67BVLD1P13Eg4lh5RW9mF0zUuvLrv9uIQ4MCL+CRT+FTsBlBjcIan6PGsLcBN0m3ClUyQ==}
@@ -5381,6 +5389,11 @@ snapshots:
       '@angular/core': 17.3.4(rxjs@7.8.1)(zone.js@0.14.4)
       '@angular/platform-browser': 17.3.4(@angular/animations@17.3.4(@angular/core@17.3.4(rxjs@7.8.1)(zone.js@0.14.4)))(@angular/common@17.3.4(@angular/core@17.3.4(rxjs@7.8.1)(zone.js@0.14.4))(rxjs@7.8.1))(@angular/core@17.3.4(rxjs@7.8.1)(zone.js@0.14.4))
       rxjs: 7.8.1
+      tslib: 2.6.2
+
+  '@auth0/angular-jwt@5.2.0(@angular/common@17.3.4(@angular/core@17.3.4(rxjs@7.8.1)(zone.js@0.14.4))(rxjs@7.8.1))':
+    dependencies:
+      '@angular/common': 17.3.4(@angular/core@17.3.4(rxjs@7.8.1)(zone.js@0.14.4))(rxjs@7.8.1)
       tslib: 2.6.2
 
   '@babel/code-frame@7.24.2':

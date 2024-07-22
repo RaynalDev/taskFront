@@ -1,25 +1,31 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, HttpClientModule],
+  imports: [FormsModule, RouterModule, HttpClientModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  email: string ='';
+  email: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit(){
-    this.authService.login(this.email, this.password);
+  onSubmit() {
+    this.authService.login(this.email, this.password).subscribe({
+      next: (response: any) => {
+        this.authService.saveToken(response.token);
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Login failed', error);
+      },
+    });
   }
-
 }
