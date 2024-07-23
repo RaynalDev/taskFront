@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
+import { AppModule } from './app/app.module';
 
 // cette fontction permet de démarrer une instance d'application angular
 // à partir d'un composant standalone
@@ -18,7 +20,16 @@ bootstrapApplication(AppComponent,{
   // ce composant est appelé par AppComponent
 
   providers: [
-    importProvidersFrom(HttpClientModule), provideAnimationsAsync(),
+    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(
+      LoggerModule.forRoot({
+        level:NgxLoggerLevel.DEBUG,
+        serverLogLevel: NgxLoggerLevel.ERROR,
+        serverLoggingUrl: 'http://localhost:3000/api/logs'
+      })
+    ),
+    importProvidersFrom(AppModule),
+    provideAnimationsAsync(),
     provideRouter(routes)
   ]
 });
