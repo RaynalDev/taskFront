@@ -35,6 +35,7 @@ export class TaskListComponent {
       (data: Task[]) => {
         // initialise le tableau de taches avec un observable renvoyé par le back
         this.tasks = data;
+        this.logger.debug(this.tasks);
       }
     );
     this.subscriptions.add(tasksSubscription);
