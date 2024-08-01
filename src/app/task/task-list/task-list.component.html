@@ -11,7 +11,7 @@
       <li class="flex flex-col items-center justify-center p-4 space-y-2 bg-solid bg-gray-100 rounded-md">
 
         @for (task of tasks; track task._id) {
-        <div class="items-center justify-center flex flex-row space-x-2">
+        <div class="items-center justify-center flex flex-row space-x-2 hover:bg-gray-200">
           @if (editingTaskId === task._id) {
           <input [(ngModel)]="task.title" type="text" (keyup.enter)="updateTask(task)" (click)="editTask(task)"
             class="rounded-md border-solid border-gray-300 p-2 text-black" />
