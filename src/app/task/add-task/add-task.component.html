@@ -1,8 +1,4 @@
-<p>add-task works!</p>
 <div>
-
-    <input class="form-control mb-3" placeholder="Ajouter Tâche" type="text" (keyup.enter)="createTask(tacheInput.value)" #tacheInput>
-    <i class="fas fa-plus-circle fa-2x text-primary" style="cursor: pointer;" (click)="createTask(tacheInput.value)"></i>
-
-
+    <input class="form-control mb-3" placeholder="Ajouter Tâche"  [(ngModel)] = "taskTitle" type="text" (keyup.enter)="createTask()" #tacheInput>
+    <i class="fas fa-plus-circle fa-2x text-primary" style="cursor: pointer;" (click)="createTask()"></i>
 </div>
