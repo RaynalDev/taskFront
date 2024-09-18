@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Task } from '../task.model';
 import { TaskService } from '../task.service';
 import { Subscription } from 'rxjs';
@@ -41,20 +41,16 @@ export class TaskListComponent {
     this.subscriptions.add(tasksSubscription);
   }
 
+
+  onTaskAdded(newTask: Task){
+    this.tasks.push(newTask);
+  }
+
   editTask(task: Task) {
     this.editingTaskId = task._id;
   }
 
-  createTask(title: string) {
-    const taskToCreate: Task = { title: title, completed: false };
-    const addTaskSubscription = this.TaskService.addTask(
-      taskToCreate
-    ).subscribe((task) => {
-      //je sychnronise mon front avec mon back
-      this.tasks.push(task);
-    });
-    this.subscriptions.add(addTaskSubscription);
-  }
+ 
 
   removeTask(task: Task) {
     const deleteTaskSubscription = this.TaskService.deleteTask(

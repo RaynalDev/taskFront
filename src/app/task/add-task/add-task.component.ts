@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, output } from '@angular/core';
 import { Task } from '../task.model';
 import { TaskService } from '../task.service';
 import { Subscription } from 'rxjs';
@@ -13,6 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
+
+  @Output() taskAdded = new EventEmitter<Task>();
 
   tasks: Task[] = [];
   private subscriptions = new Subscription();
@@ -39,7 +41,7 @@ export class AddTaskComponent {
       console.log('Tache crée', task);
 
       //je sychnronise mon front avec mon back
-      this.tasks.push(task);
+      this.taskAdded.emit(taskToCreate);
     })
     this.subscriptions.add(addTaskSubscription);
 
