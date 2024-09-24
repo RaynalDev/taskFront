@@ -17,16 +17,23 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit() {
-    this.authService.login(this.email, this.password).subscribe({
-      next: (response: any) => {
-        this.authService.saveToken(response.token);
-        this.router.navigate(['/']);
-      },
-      error: (error) => {
-        console.error('Login failed', error);
-      },
-    });
-  }
+  // onSubmit() {
+  //   this.authService.login(this.email, this.password).subscribe({
+  //     next: (response: any) => {
+  //       this.authService.saveToken(response.token);
+  //       this.router.navigate(['/']);
+  //     },
+  //     error: (error) => {
+  //       console.error('Login failed', error);
+  //     },
+  //   });
+  // }
+
+onSubmit(){
+  this.authService.login(this.email,this.password);
+  console.log(this.email,this.password);
+  
+}
+
 }
 

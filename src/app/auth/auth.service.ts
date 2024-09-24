@@ -13,18 +13,35 @@ export class AuthService {
   private readonly tokenName = 'auth_token';
   private jwtHelper = new JwtHelperService();
 
+  private isFakeAuthenticated:boolean = false;
+
   constructor(
     private http: HttpClient,
     private router: Router
   ) {}
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { email, password });
+  // login(email: string, password: string): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/login`, { email, password });
+  // }
+
+
+  login(userName:string, password:string){
+    //vérificaiton factice
+    if(userName === 'admin' && password === 'admin'){
+      this.isFakeAuthenticated = true;
+      localStorage.setItem(this.tokenName, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   logout() {
+    this.isFakeAuthenticated = false;
     localStorage.removeItem(this.tokenName);
     this.router.navigate(['/login']);
+  }
+
+  isLoggedIn():boolean{
+    return localStorage.getItem(this.tokenName)  == 'fakeToken';
   }
 
   isAuthenticated(): boolean {
