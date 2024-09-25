@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import  * as users  from '../../assets/users.json';
 
 @Injectable({
   providedIn: 'root',
@@ -13,23 +13,24 @@ export class AuthService {
   private readonly tokenName = 'auth_token';
   private jwtHelper = new JwtHelperService();
 
-  private isFakeAuthenticated:boolean = false;
+  private isFakeAuthenticated: boolean = false;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  // login(email: string, password: string): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/login`, { email, password });
-  // }
+data: any = users;
+ 
+
+  login(userName: string, password: string) {
 
 
-  login(userName:string, password:string){
+    const user = users.find(u=>u.username === userName && u.passwordHash === password)
     //vérificaiton factice
-    if(userName === 'admin' && password === 'admin'){
+    if (userName === 'admin' && password === 'admin') {
       this.isFakeAuthenticated = true;
-      localStorage.setItem(this.tokenName, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');
+      localStorage.setItem(
+        this.tokenName,
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+      );  
       this.router.navigate(['/dashboard']);
     }
   }
@@ -40,8 +41,8 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  isLoggedIn():boolean{
-    return localStorage.getItem(this.tokenName)  == 'fakeToken';
+  isLoggedIn(): boolean {
+    return localStorage.getItem(this.tokenName) == 'fakeToken';
   }
 
   isAuthenticated(): boolean {

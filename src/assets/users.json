@@ -1,0 +1,33 @@
+[
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@example.com",
+      "passwordHash": "$2a$10$E1YnPaX2Vuyz", 
+      "role": "admin",
+      "profileImageUrl": "https://via.placeholder.com/150",
+      "isActive": true,
+      "createdAt": "2023-09-25T12:00:00Z"
+    },
+    {
+      "id": 2,
+      "username": "john",
+      "email": "john.doe@example.com",
+      "passwordHash": "$2a$10$N6YnPaX2Vuyb", 
+      "role": "user",
+      "profileImageUrl": "https://via.placeholder.com/150",
+      "isActive": true,
+      "createdAt": "2023-09-26T12:00:00Z"
+    },
+    {
+      "id": 3,
+      "username": "jane",
+      "email": "jane.doe@example.com",
+      "passwordHash": "$2a$10$Z1YnPaX2Vuya", 
+      "role": "user",
+      "profileImageUrl": "https://via.placeholder.com/150",
+      "isActive": false,
+      "createdAt": "2023-09-27T12:00:00Z"
+    }
+  ]
+  

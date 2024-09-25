@@ -1,0 +1,18 @@
+<div class="relative">
+    <button class="focus:outline-none" (click)="toggleMenu()">
+
+        <img class="h-8 w-8 rounded-full"
+            src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
+            alt="">
+    </button>
+
+    <!-- Dropdown menu -->
+    @if (isMenuOptionDisplayed) {
+    <div class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl z-50">
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+    </div>
+    }
+
+</div>
