@@ -20,7 +20,14 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   private currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+
+    const storedUser = localStorage.getItem('currentUser');
+    if(storedUser){
+      this.currentUserSubject.next(JSON.parse(storedUser))
+    }
+
+  }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl);
@@ -54,21 +61,18 @@ export class AuthService {
 
   logout() {
     this.isFakeAuthenticated = false;
-    localStorage.removeItem(this.tokenName);
+    localStorage.removeItem('currentUser');
     this.router.navigate(['/login']);
   }
 
-  isLoggedIn(): boolean {
-    return localStorage.getItem(this.tokenName) == 'fakeToken';
-  }
+
 
   isAuthenticated(): boolean {
-    const token = localStorage.getItem(this.tokenName);
-    // si le token existe et si il n'a pas expiré
-    return !!token && !this.jwtHelper.isTokenExpired(token);
+    // const token = localStorage.getItem('currentUser');
+    // // si le token existe et si il n'a pas expiré
+    // return !!token && !this.jwtHelper.isTokenExpired(token);
+    return true;
   }
 
-  saveToken(token: string) {
-    localStorage.setItem(this.tokenName, token);
-  }
+  
 }
