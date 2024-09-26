@@ -30,10 +30,14 @@ export class LoginComponent {
   // }
 
 onSubmit(){
-  this.authService.login(this.email,this.password);
-  console.log(this.email,this.password);
-  
+  this.authService.login(this.email,this.password).subscribe((isLoggedIn)=> {
+    if(isLoggedIn)
+    this.router.navigate(['/dashboard']);
+    else
+    console.log('échec');
+  }  )
+}
 }
 
-}
+
 

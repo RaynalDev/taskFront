@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import  * as users  from '../../assets/users.json';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { User } from '../user/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,24 +16,40 @@ export class AuthService {
 
   private isFakeAuthenticated: boolean = false;
 
+  private usersUrl = 'assets/users.json';
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  private currentUser$ = this.currentUserSubject.asObservable();
+
   constructor(private http: HttpClient, private router: Router) {}
 
-data: any = users;
- 
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.usersUrl);
+  }
 
-  login(userName: string, password: string) {
+  getCurrentUser(): Observable<User | null> {
+    return this.currentUser$;
+  }
 
+  login(userName: string, password: string): Observable<boolean> {
+    return this.getUsers().pipe(
+      map((users) => {
+        console.log('Utilisateurs récupérés:', users);
+        const user = users.find(
+          (u) =>
+            (u.username === userName || u.email === userName) &&
+            u.passwordHash === password
+        );
 
-    const user = users.find(u=>u.username === userName && u.passwordHash === password)
-    //vérificaiton factice
-    if (userName === 'admin' && password === 'admin') {
-      this.isFakeAuthenticated = true;
-      localStorage.setItem(
-        this.tokenName,
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
-      );  
-      this.router.navigate(['/dashboard']);
-    }
+        if (user) {
+          console.log('Utilisateur trouvé:', user); // Ajoute ce log
+          this.currentUserSubject.next(user);
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          return true;
+        }
+        console.log('Aucun utilisateur trouvé');
+        return false;
+      })
+    );
   }
 
   logout() {
