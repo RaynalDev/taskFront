@@ -1,19 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Task } from '../task.model';
 import { TaskService } from '../task.service';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
 import { AddTaskComponent } from '../add-task/add-task.component';
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [AddTaskComponent,FormsModule, MatCheckboxModule, MatButtonModule, MatIconModule],
+  imports: [
+    AddTaskComponent,
+    FormsModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
   templateUrl: './task-list.component.html',
-  styleUrl: './task-list.component.scss'
+  styleUrl: './task-list.component.scss',
 })
 export class TaskListComponent {
   tasks: Task[] = [];
@@ -21,72 +28,58 @@ export class TaskListComponent {
   editingTaskId: string | undefined | null = null;
   showAddTaskModal = false;
 
-
-  constructor(private TaskService: TaskService) { }
+  constructor(private TaskService: TaskService, private logger: NGXLogger) {}
 
   ngOnInit() {
-
-    const tasksSubscription = this.TaskService.getTasks().subscribe((data: Task[]) => {
-
-      // initialise le tableau de taches avec un observable renvoyé par le back
-      this.tasks = data;
-      console.log(this.tasks);
-
-    });
+    const tasksSubscription = this.TaskService.getTasks().subscribe(
+      (data: Task[]) => {
+        // initialise le tableau de taches avec un observable renvoyé par le back
+        this.tasks = data;
+        this.logger.debug(this.tasks);
+      }
+    );
     this.subscriptions.add(tasksSubscription);
   }
 
 
+  onTaskAdded(newTask: Task){
+    this.tasks.push(newTask);
+  }
+
   editTask(task: Task) {
-    console.log("edit task");
     this.editingTaskId = task._id;
   }
 
-  createTask(title: string) {
-    const taskToCreate: Task = { title: title, completed: false };
-    const addTaskSubscription = this.TaskService.addTask(taskToCreate).subscribe(task => {
-      console.log('Tache crée', task);
-
-      //je sychnronise mon front avec mon back
-      this.tasks.push(task);
-    })
-    this.subscriptions.add(addTaskSubscription);
-
-  }
+ 
 
   removeTask(task: Task) {
-    console.log(task);
-
-    const deleteTaskSubscription = this.TaskService.deleteTask(task._id).subscribe({
+    const deleteTaskSubscription = this.TaskService.deleteTask(
+      task._id
+    ).subscribe({
       next: (response) => {
-        this.tasks = this.tasks.filter(t => t._id !== task._id);
-        console.log("tableau de taches", this.tasks);
-        console.log(response);
+        this.tasks = this.tasks.filter((t) => t._id !== task._id);
+        this.logger.info(response);
       },
       error: (err) => {
-        console.error('Erreur lors de la suppression :', err);
-      }
+        this.logger.error('Delete error : ', err);
+      },
     });
     this.subscriptions.add(deleteTaskSubscription);
   }
 
   updateTask(task: Task) {
-    console.log(task);
-
+    this.logger.debug(task);
+    // this.logger.debug(task);
     const updateTaskSubscription = this.TaskService.updateTask(task).subscribe({
       next: (response) => {
-        const index = this.tasks.findIndex(t => t._id === task._id);
+        const index = this.tasks.findIndex((t) => t._id === task._id);
         this.tasks[index].title = task.title;
         this.tasks[index].completed = task.completed;
-        console.log(response);
-        console.log(this.tasks);
-
         this.editingTaskId = null;
       },
       error: (err) => {
-        console.log('Errueur lors de la modification');
-
-      }
+        this.logger.error('Update error : ', err);      
+      },
     });
     this.subscriptions.add(updateTaskSubscription);
   }
@@ -95,14 +88,9 @@ export class TaskListComponent {
     this.editingTaskId = null;
   }
 
-  openTaskDetailModal(task: Task) {
-
-  }
-
+  openTaskDetailModal(task: Task) {}
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
-
 }

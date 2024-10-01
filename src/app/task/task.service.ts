@@ -21,7 +21,6 @@ export class TaskService {
     return this.http.get<Task[]>(this.apiUrl);
   }
 
-  // Dans task-to-back-end.service.ts
   deleteTask(taskId: string|undefined): Observable<any> {
     const url = `${this.apiUrl}/${taskId}`;
     return this.http.delete(url);
@@ -30,7 +29,6 @@ export class TaskService {
   updateTask(task : Task): Observable<any>{
     const url = `${this.apiUrl}/${task._id}`;
     return this.http.put(url, task);
-    // return this.http.put(url, {"title": task.title, "completed": task.completed});
   }
 
 }

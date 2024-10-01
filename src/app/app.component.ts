@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
-import { routes } from './app.routes';
+import { NavbarComponent } from "./navbar/navbar.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, DashboardComponent, RouterOutlet,RouterLink, RouterLinkActive
-  ],
-  // providers: [ActivatedRoute],
+  imports: [
+    RouterModule,
+    DashboardComponent,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    NavbarComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

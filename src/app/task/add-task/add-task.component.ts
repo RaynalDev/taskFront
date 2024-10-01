@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, output } from '@angular/core';
 import { Task } from '../task.model';
 import { TaskService } from '../task.service';
 import { Subscription } from 'rxjs';
@@ -14,7 +14,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AddTaskComponent {
 
+  @Output() taskAdded = new EventEmitter<Task>();
+
   tasks: Task[] = [];
+  taskTitle:string = '';
   private subscriptions = new Subscription();
   editingTaskId: string | undefined | null = null;
 
@@ -33,13 +36,17 @@ export class AddTaskComponent {
   }
 
 
-  createTask(title: string) {
-    const taskToCreate: Task = { title: title, completed: false };
+  createTask() {
+    const taskToCreate: Task = { title: this.taskTitle, completed: false, _id: '' };
     const addTaskSubscription = this.TaskService.addTask(taskToCreate).subscribe(task => {
       console.log('Tache crée', task);
 
+      //Mise à jour de l'ID de la tache
+      taskToCreate._id = task._id;
       //je sychnronise mon front avec mon back
-      this.tasks.push(task);
+      this.taskAdded.emit(taskToCreate);
+      this.taskTitle = '';
+      
     })
     this.subscriptions.add(addTaskSubscription);
 
