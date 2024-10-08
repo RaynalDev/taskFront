@@ -1,27 +1,30 @@
-# Task Manager Front end (Multi-user)
+# Task Manager Frontend (Angular)
 
 ## Description
-A multi-user task management application developed with Angular and Node.js. The goal is to allow multiple users to create, assign, and track tasks within an intuitive interface.
+This is the frontend for a multi-user task management application, built with Angular. It provides an intuitive interface for users to manage and track tasks. The key feature of the application is the automatic task duration estimation, prioritization, and seamless integration with Google Calendar.
 
 ## Features
-- User management (authentication)
-- Create, edit, and delete tasks
+- User authentication (login)
+- Create, edit, delete tasks
+
 
 ## Installation
 1. Clone the repository: `git clone git@github.com:RaynalDev/taskFront.git`
-2. Navigate to the directory: `cd taskManager`
+2. Navigate to the directory: `cd taskFront`
 3. Install dependencies: `npm install`
 4. Run the application: `ng serve`
 
 ## Technologies Used
-- **Frontend**: Angular
-- **Backend**: Node.js
-- **Database**: MongoDB
+- **Frontend**: Angular, Tailwind CSS, CSS Flexbox for task layout
+- **UI**: Custom components for task modification and user profile management
 
 ## Work in Progress
 - Registration
-- Real-time task notifications
-- Advanced task filtering
-- Integration with third-party APIs
 - Assign tasks to different users
-- Track task progress
+- Filter and sort tasks
+- Task priority and project assignment
+- **UI Components**: Modal for task modification, task alignment, and task status updates
+- JWT integration for secure sessions
+- Password reset and security updates
+- Task filtering and sorting
+- **Google Calendar Integration**: Tasks will be automatically estimated in duration, prioritized, and inserted into the user's Google Calendar.
