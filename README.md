@@ -1,4 +1,4 @@
-# Task Manager (Multi-user)
+# Task Manager Front end (Multi-user)
 
 ## Description
 A multi-user task management application developed with Angular and Node.js. The goal is to allow multiple users to create, assign, and track tasks within an intuitive interface.
