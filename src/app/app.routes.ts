@@ -16,7 +16,6 @@ export const routes: Routes = [
     { path: 'dashboard',component: DashboardComponent, children: [
         {path: 'task-list', component: TaskListComponent} //sous-route pour tasklistComponent
     ]},
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
     { path: 'auth',component: AuthSwitcherComponent},
     { path: 'login',component: LoginComponent},
     { path: 'signup',component: SignupComponent},

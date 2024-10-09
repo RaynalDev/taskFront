@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder,FormGroup, Validator, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule,RouterLink, RouterLinkActive],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
