@@ -1,0 +1,34 @@
+
+<div class="flex justifiy-between items-center bg-gray-800 p-4">
+    <div class="text-white text-lg">
+        TODO-LIST
+    </div>
+
+    <!-- Dropdown menu -->
+
+    <div class="relative">
+        <button (click)="toggleMenu()" class="focus:outline-none">
+            <img src="https://unsplash.com/fr/photos/homme-portant-une-chemise-noire-aoEwuEH7YAs" alt="avatar" class="w-8 h-8 rounded-full">
+            <span class="ml-2 text-white">John Doe</span>
+        </button>
+
+
+        @if (isMenuOptionDisplayed) {
+        <div
+            class="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div class="py-1" role="none">
+                <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Profile</a>
+            </div>
+            <div class="py-1" role="none">
+                <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Settings</a>
+            </div>
+            <div class="py-1" role="none">
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">Sign
+                    out</a>
+            </div>
+        </div>
+        }
+
+    </div>
