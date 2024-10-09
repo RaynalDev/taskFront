@@ -4,6 +4,7 @@ import { AddTaskComponent } from './task/add-task/add-task.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthSwitcherComponent } from './auth/auth-switcher/auth-switcher.component';
 
 export const routes: Routes = [
     { path: 'addTask',component: AddTaskComponent},
@@ -12,6 +13,7 @@ export const routes: Routes = [
         {path: 'task-list', component: TaskListComponent} //sous-route pour tasklistComponent
     ]},
     { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+    { path: 'login',component: AuthSwitcherComponent},
     { path: 'login',component: LoginComponent},
     { path: 'signup',component: SignupComponent},
 

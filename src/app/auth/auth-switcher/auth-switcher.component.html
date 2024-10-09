@@ -1,0 +1,9 @@
+<p>auth-switcher works!</p>
+
+
+<button (click)="toggleComponent()">teste</button>
+@if(showLogin){
+    <app-login></app-login>
+} @else {
+    <app-signup></app-signup>
+}

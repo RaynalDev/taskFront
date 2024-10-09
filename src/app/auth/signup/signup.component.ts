@@ -1,20 +1,30 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder,FormGroup, Validator, Validators, FormControl } from '@angular/forms';
+import { AuthService } from '../auth.service';
+
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent {
-  email: string = '';
-  password: string = '';
-  confirmPassword: string = '';
 
-  onSubmit() {
-    console.log(this.email, this.password, this.confirmPassword);
+  signupForm = new FormGroup({
+    username : new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl(''),
+    confirmPassword: new FormControl('')
+  });  
+
+  constructor(private authService: AuthService,  private fb:FormBuilder){
+  
   }
 
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.warn(this.signupForm.value);
+  }
 }
