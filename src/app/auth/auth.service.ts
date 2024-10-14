@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl);
+    return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
 
   getCurrentUser(): Observable<User|null> {

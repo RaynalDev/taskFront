@@ -32,9 +32,13 @@ export class SignupComponent {
     };
   
     this.authService.signup(formData).subscribe({
-      next : (response) =>   {
-        console.log('inscription validée', response);
-        this.router.navigate(['/dashboard']);
+      next : (user) =>   {
+        console.log('inscription validée', user);
+        this.authService.login(user.username,user.password).subscribe(
+          {
+            next: () => this.router.navigate(['/dashboard'])
+          }
+        )
       },
       error : (error) =>    console.error('Erreur lors de l inscription',error),
     });
