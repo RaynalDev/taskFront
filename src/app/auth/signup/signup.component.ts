@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder,FormGroup, Validator, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 
 @Component({
@@ -20,12 +20,25 @@ export class SignupComponent {
     confirmPassword: new FormControl('')
   });  
 
-  constructor(private authService: AuthService,  private fb:FormBuilder){
+  constructor(private authService: AuthService,  private fb:FormBuilder, private router:Router){
   
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.signupForm.value);
-  }
+    const formData = {
+      username: this.signupForm.get('username')?.value ?? '',
+      email: this.signupForm.get('email')?.value ?? '',
+      password: this.signupForm.get('password')?.value ?? ''
+    };
+  
+    this.authService.signup(formData).subscribe({
+      next : (response) =>   {
+        console.log('inscription validée', response);
+        this.router.navigate(['/dashboard']);
+      },
+      error : (error) =>    console.error('Erreur lors de l inscription',error),
+    });
+  } 
+  
+  
 }

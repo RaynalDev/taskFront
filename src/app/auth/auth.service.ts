@@ -17,7 +17,7 @@ export class AuthService {
   private isFakeAuthenticated: boolean = false;
 
   private usersUrl = 'assets/users.json';
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  private currentUserSubject = new BehaviorSubject<User|null | null>(null);
   private currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
@@ -33,34 +33,36 @@ export class AuthService {
     return this.http.get<User[]>(this.usersUrl);
   }
 
-  getCurrentUser(): Observable<User | null> {
+  getCurrentUser(): Observable<User|null> {
     return this.currentUser$;
   }
 
   login(userName: string, password: string): Observable<boolean> {
     return this.getUsers().pipe(
       map((users) => {
-        console.log('Utilisateurs récupérés:', users);
+        console.log('Users fetched :', users);
         const user = users.find(
           (u) =>
             (u.username === userName || u.email === userName) &&
-            u.passwordHash === password
+            u.password === password
         );
 
         if (user) {
-          console.log('Utilisateur trouvé:', user); // Ajoute ce log
+          console.log('User found:', user); // Ajoute ce log
           this.currentUserSubject.next(user);
           localStorage.setItem('currentUser', JSON.stringify(user));
           return true;
         }
-        console.log('Aucun utilisateur trouvé');
+        console.log('no user found');
         return false;
       })
     );
   }
 
-  register(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { email, password });
+  signup(user:{username: string, email:string, password:string }): Observable<User> {
+    console.log('username, email et password ',  user.username, user.email , user.password   );
+    
+    return this.http.post<User>(`${this.apiUrl}/signup`,  user );
   }
 
   logout() {

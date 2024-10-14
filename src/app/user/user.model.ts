@@ -1,7 +1,7 @@
 export interface User {
     id: number;
     username: string;
-    passwordHash: string; // hashed password
+    password: string; // hashed password
     role: string; // admin, user, etc.
     profileImageUrl: string; // url of the user's picture
     email: string; // email of the user
